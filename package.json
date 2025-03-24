@@ -2,6 +2,7 @@
   "name": "pdf-viewer-project",
   "version": "1.0.0",
   "description": "An advanced PDF viewer app with AI anonymization",
+  "type": "module",  
   "main": "src/index.js",
   "scripts": {
     "start": "parcel src/index.html",

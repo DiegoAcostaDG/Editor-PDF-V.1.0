@@ -1,7 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const fetch = require('node-fetch');
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Cargar variables de entorno desde el archivo .env
 
 const app = express();
 app.use(cors());
@@ -13,7 +15,7 @@ const MODEL_URL = "https://api-inference.huggingface.co/models/microsoft/presidi
 app.post('/anonymize', async (req, res) => {
   try {
     const { text } = req.body;
-    
+
     const response = await fetch(MODEL_URL, {
       method: 'POST',
       headers: {
@@ -24,7 +26,8 @@ app.post('/anonymize', async (req, res) => {
     });
 
     const result = await response.json();
-    res.json({ anonymizedText: result[0].text });
+    res.json({ anonymizedText: result[0]?.text || 'No se pudo anonimizar' });
+
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Failed to anonymize text' });
